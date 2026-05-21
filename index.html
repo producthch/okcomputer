@@ -591,7 +591,7 @@
             products.forEach(p => {
                 tbody.innerHTML += `
                 <tr class="hover:bg-gray-800/50">
-                    <td class="p-3"><img src="${p.image}" class="w-12 h-12 object-cover rounded border border-gray-700"></td>
+                    <img src="${p.image}" referrerpolicy="no-referrer" class="w-12 h-12 object-cover rounded border border-gray-700">
                     <td class="p-3 text-white font-medium">${p.name}</td>
                     <td class="p-3 text-primary">RM ${p.price}</td>
                     <td class="p-3 text-right">
