@@ -355,7 +355,7 @@
         <div class="bg-darker border border-gray-800 rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
             <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
             <h3 class="text-2xl font-bold text-white mb-6 text-center"><i class="fas fa-user-shield text-primary mr-2"></i> Admin Panel</h3>
-            <input type="password" id="adminPassword" placeholder="Kata Laluan (taip: admin123)" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white mb-4 focus:outline-none focus:border-primary">
+            <input type="password" id="adminPassword" placeholder="Kata Laluan" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white mb-4 focus:outline-none focus:border-primary">
             <button onclick="checkLogin()" class="w-full bg-primary hover:bg-accent text-white font-bold py-3 rounded-lg transition-colors">Log Masuk</button>
             <p id="loginError" class="text-red-500 text-sm mt-3 hidden text-center">Kata laluan salah!</p>
         </div>
@@ -381,6 +381,7 @@
                     </div>
                     <div class="md:col-span-2">
                         <label class="block text-sm text-gray-400 mb-1">Muat Naik Gambar Produk (Akan di-compress automatik)</label>
+                        <p class="text-xs text-gray-500 mb-2">Saiz disyorkan: 1200×900 px (Ratio 4:3) untuk paparan terbaik.</p>
                         <input type="file" id="pImage" accept="image/*" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20">
                     </div>
                     <div>
@@ -392,8 +393,8 @@
                         <input type="text" id="pRam" placeholder="Cth: 16GB DDR4" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
                     </div>
                     <div>
-                        <label class="block text-sm text-gray-400 mb-1">GPU / Grafik</label>
-                        <input type="text" id="pGpu" placeholder="Cth: RTX 3060 12GB" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
+                        <label class="block text-sm text-gray-400 mb-1">Operating System</label>
+                        <input type="text" id="pGpu" placeholder="Cth: Windows 11 Pro" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
                     </div>
                     <div>
                         <label class="block text-sm text-gray-400 mb-1">Storan (SSD/HDD)</label>
@@ -524,7 +525,7 @@
                                 <span class="text-white font-medium text-right ml-2">${p.ram}</span>
                             </div>
                             <div class="spec-row">
-                                <span class="text-gray-400"><i class="fas fa-desktop w-5"></i> GPU</span>
+                                <span class="text-gray-400"><i class="fas fa-desktop w-5"></i> Win</span>
                                 <span class="text-white font-medium text-right ml-2">${p.gpu}</span>
                             </div>
                             <div class="spec-row">
@@ -551,7 +552,7 @@
 
         function checkLogin() {
             const pwd = document.getElementById('adminPassword').value;
-            if (pwd === 'admin123') { // Kata laluan ialah admin123
+            if (pwd === 'bob123') { // 
                 document.getElementById('loginModal').classList.add('hidden');
                 document.getElementById('adminPassword').value = '';
                 document.getElementById('loginError').classList.add('hidden');
@@ -789,7 +790,7 @@
 
         // Tempahan WhatsApp
         function orderWhatsApp(productName, price) {
-            const phoneOwner = "60123456789"; // Tukar nombor ini
+            const phoneOwner = "60174288578"; // Tukar nombor ini
             const message = `Hai Fizi Bob Ok Computer, saya berminat untuk membeli model *${productName}* berharga *RM ${price}*. Boleh berikan maklumat lanjut?`;
             window.open(`https://wa.me/${phoneOwner}?text=${encodeURIComponent(message)}`, '_blank');
         }
