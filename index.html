@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fizi Bob Ok Computer - Pakar IT & PC Anda</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#0f172a',
+                        darker: '#020617',
+                        primary: '#0ea5e9', // Premium IT Blue
+                        accent: '#38bdf8'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom IT Premium Styles */
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+        }
+        
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.3);
+            border-color: rgba(14, 165, 233, 0.5);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+        }
+
+        /* Floating WhatsApp Button */
+        .float-wa {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0px 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .float-wa:hover {
+            transform: scale(1.1);
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.875rem;
+        }
+
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .share-btn-group a {
+            transition: transform 0.2s;
+        }
+        .share-btn-group a:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <svg class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <div class="ml-3">
+                        <span class="block text-xl font-bold tracking-tight text-white leading-none">FIZI BOB</span>
+                        <span class="block text-xs font-semibold tracking-widest text-primary mt-1 uppercase">Ok Computer</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#utama" class="text-gray-300 hover:text-white transition-colors">Utama</a>
+                    <a href="#produk" class="text-gray-300 hover:text-white transition-colors">Katalog Produk</a>
+                    <a href="#kelebihan" class="text-gray-300 hover:text-white transition-colors">Kelebihan</a>
+                    <a href="#hubungi" class="bg-primary hover:bg-accent text-white px-5 py-2.5 rounded-lg font-medium transition-colors shadow-[0_0_15px_rgba(14,165,233,0.4)]">
+                        Tempah Sekarang
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark border-t border-gray-800 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#utama" class="block px-3 py-3 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-md">Utama</a>
+                <a href="#produk" class="block px-3 py-3 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-md">Katalog Produk</a>
+                <a href="#kelebihan" class="block px-3 py-3 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white rounded-md">Kelebihan</a>
+                <a href="#hubungi" class="block px-3 py-3 text-base font-medium text-primary hover:bg-gray-800 rounded-md">Hubungi Kami</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="utama" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Gradient/Image -->
+        <div class="absolute inset-0 z-0">
+            <!-- Nota: Anda boleh tukar src imej ini kepada Google Drive direct link anda -->
+            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=2000&auto=format&fit=crop" alt="Computer Store Background" class="w-full h-full object-cover opacity-20" />
+            <div class="absolute inset-0 bg-gradient-to-t from-darker via-darker/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-darker via-darker/90 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center">
+            <div class="w-full lg:w-3/5 text-left">
+                <div class="inline-block px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-semibold tracking-wide mb-6">
+                    <i class="fas fa-microchip mr-2"></i> Pilihan #1 Gamers & Profesional
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6 glow-text">
+                    Bina <span class="text-primary">Rig Impian</span> Anda Hari Ini.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl">
+                    Fizi Bob Ok Computer membekalkan komponen PC berkualiti tinggi, laptop premium, dan perkhidmatan baik pulih profesional. Prestasi maksimum, kepuasan terjamin.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#produk" class="bg-primary hover:bg-accent text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition-all shadow-[0_0_20px_rgba(14,165,233,0.4)]">
+                        Lihat Katalog
+                    </a>
+                    <a href="#hubungi" class="border border-gray-600 hover:border-white text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition-all bg-white/5 hover:bg-white/10">
+                        Minta Sebut Harga
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Standards / Kelebihan Section -->
+    <section id="kelebihan" class="py-16 bg-dark border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="text-primary text-4xl mb-4"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="text-white font-bold mb-2">Waranti Tulen</h3>
+                    <p class="text-gray-400 text-sm">Alat ganti original dengan waranti pengeluar.</p>
+                </div>
+                <div class="p-4">
+                    <div class="text-primary text-4xl mb-4"><i class="fas fa-tools"></i></div>
+                    <h3 class="text-white font-bold mb-2">Pakar Teknikal</h3>
+                    <p class="text-gray-400 text-sm">Pemasangan kemas (cable management) & profesional.</p>
+                </div>
+                <div class="p-4">
+                    <div class="text-primary text-4xl mb-4"><i class="fas fa-shipping-fast"></i></div>
+                    <h3 class="text-white font-bold mb-2">Penghantaran Pantas</h3>
+                    <p class="text-gray-400 text-sm">Penghantaran selamat ke seluruh Malaysia.</p>
+                </div>
+                <div class="p-4">
+                    <div class="text-primary text-4xl mb-4"><i class="fas fa-headset"></i></div>
+                    <h3 class="text-white font-bold mb-2">Sokongan 24/7</h3>
+                    <p class="text-gray-400 text-sm">Bantuan selepas jualan sentiasa tersedia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="produk" class="py-24 bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Katalog <span class="text-primary">Produk Pilihan</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Sistem siap bina (Pre-built) direka khas mengikut keperluan dan bajet anda.</p>
+            </div>
+
+            <div id="product-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Produk akan dimasukkan secara automatik (dynamic) melalui JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Sheet Form Section -->
+    <section id="hubungi" class="py-24 bg-dark relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#0ea5e9 1px, transparent 1px); background-size: 40px 40px;"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-darker border border-gray-800 rounded-2xl p-8 md:p-12 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-2">Borang Pertanyaan & Tempahan</h2>
+                    <p class="text-gray-400">Isi maklumat di bawah. Data ini akan dipautkan terus ke sistem (Google Sheets).</p>
+                </div>
+
+                <!-- 
+                  Nota Webmaster: 
+                  Gantikan 'URL_GOOGLE_APPS_SCRIPT_ANDA' dengan URL Web App dari Google Apps Script anda. 
+                  Tutorial: Buat Google Sheet -> Extensions -> Apps Script -> Tulis kod doPost(e) -> Deploy as Web App.
+                -->
+                <form id="googleSheetForm" class="space-y-6" onsubmit="submitForm(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">Nama Penuh</label>
+                            <input type="text" id="name" name="nama" required class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-2">No. Telefon (WhatsApp)</label>
+                            <input type="tel" id="phone" name="telefon" required class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Jenis Servis / Produk Diminati</label>
+                        <select id="service" name="servis" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors">
+                            <option value="Bina Custom PC">Bina Custom PC</option>
+                            <option value="Beli Pre-built PC">Beli PC Siap Bina (Pre-built)</option>
+                            <option value="Beli Laptop">Beli Laptop</option>
+                            <option value="Baik Pulih / Repair">Baik Pulih (Repair) / Cuci PC</option>
+                            <option value="Lain-lain">Lain-lain</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Mesej Tambahan / Bajet Anda (RM)</label>
+                        <textarea id="message" name="mesej" rows="4" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Cth: Saya cari PC untuk main game Valorant, bajet RM 3000..."></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full bg-primary hover:bg-accent text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] shadow-[0_4px_15px_rgba(14,165,233,0.4)]">
+                        Hantar Permohonan <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+
+                <!-- Success Message (Hidden by default) -->
+                <div id="successMsg" class="hidden mt-6 bg-green-900/50 border border-green-500 text-green-300 p-4 rounded-lg text-center">
+                    <i class="fas fa-check-circle text-2xl mb-2"></i><br>
+                    Mesej anda berjaya dihantar! Kami akan menghubungi anda secepat mungkin.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-gray-900 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <div class="ml-3">
+                            <span class="block text-lg font-bold text-white leading-none">FIZI BOB</span>
+                            <span class="block text-[10px] font-semibold text-primary uppercase mt-1">Ok Computer</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm">Pusat sehenti untuk segala keperluan IT, komputer dan laptop anda. Dipercayai sejak 2020.</p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Pautan Pantas</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#utama" class="text-gray-400 hover:text-primary transition-colors text-sm">Halaman Utama</a></li>
+                        <li><a href="#produk" class="text-gray-400 hover:text-primary transition-colors text-sm">Katalog Produk</a></li>
+                        <li><a href="#kelebihan" class="text-gray-400 hover:text-primary transition-colors text-sm">Kelebihan Kami</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Hubungi Kami</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-gray-400 text-sm">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-primary"></i>
+                            <span>Lot 123, Jalan Teknologi,<br>Taman IT Premium, 43000 Selangor</span>
+                        </li>
+                        <li class="flex items-center text-gray-400 text-sm">
+                            <i class="fas fa-phone mr-3 text-primary"></i>
+                            <span>+60 12-345 6789</span>
+                        </li>
+                        <li class="flex items-center text-gray-400 text-sm">
+                            <i class="fas fa-envelope mr-3 text-primary"></i>
+                            <span>sales@fizibobokcomputer.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2026 Fizi Bob Ok Computer. Hak cipta terpelihara.
+                </p>
+                <div class="flex space-x-4 items-center mb-4 md:mb-0">
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-tiktok"></i></a>
+                </div>
+                
+                <!-- Butang Admin yang lebih jelas -->
+                <button onclick="openLoginModal()" class="flex items-center text-gray-400 hover:text-primary transition-colors bg-gray-800/50 hover:bg-gray-800 px-4 py-2 rounded-lg text-sm font-medium border border-gray-700">
+                    <i class="fas fa-lock mr-2 text-primary"></i> Admin Panel
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="hidden fixed inset-0 z-[100] modal-backdrop flex items-center justify-center p-4">
+        <div class="bg-darker border border-gray-800 rounded-2xl p-8 w-full max-w-md shadow-2xl relative">
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-2xl font-bold text-white mb-6 text-center"><i class="fas fa-user-shield text-primary mr-2"></i> Admin Panel</h3>
+            <input type="password" id="adminPassword" placeholder="Kata Laluan (taip: admin123)" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white mb-4 focus:outline-none focus:border-primary">
+            <button onclick="checkLogin()" class="w-full bg-primary hover:bg-accent text-white font-bold py-3 rounded-lg transition-colors">Log Masuk</button>
+            <p id="loginError" class="text-red-500 text-sm mt-3 hidden text-center">Kata laluan salah!</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div id="adminModal" class="hidden fixed inset-0 z-[100] modal-backdrop flex items-center justify-center p-4">
+        <div class="bg-darker border border-gray-800 rounded-2xl p-6 w-full max-w-4xl shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-2xl font-bold text-white mb-6 border-b border-gray-800 pb-4">Pengurusan Produk</h3>
+            
+            <!-- Borang Tambah Produk Baru -->
+            <div class="bg-dark p-6 rounded-xl mb-8 border border-gray-800">
+                <h4 class="text-lg font-bold text-primary mb-4"><i class="fas fa-plus-circle mr-2"></i>Tambah Produk Baru</h4>
+                <form id="addProductForm" onsubmit="saveProduct(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Nama Produk</label>
+                        <input type="text" id="pName" placeholder="Cth: PC Gaming Bajet" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Harga (RM)</label>
+                        <input type="number" id="pPrice" placeholder="Cth: 2500" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm text-gray-400 mb-1">Muat Naik Gambar Produk (Akan di-compress automatik)</label>
+                        <input type="file" id="pImage" accept="image/*" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">CPU / Processor</label>
+                        <input type="text" id="pCpu" placeholder="Cth: Intel Core i5" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">RAM</label>
+                        <input type="text" id="pRam" placeholder="Cth: 16GB DDR4" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">GPU / Grafik</label>
+                        <input type="text" id="pGpu" placeholder="Cth: RTX 3060 12GB" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Storan (SSD/HDD)</label>
+                        <input type="text" id="pStorage" placeholder="Cth: 512GB NVMe SSD" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
+                    </div>
+                    <div class="md:col-span-2 mt-4">
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition-colors shadow-lg"><i class="fas fa-upload mr-2"></i> Publish Produk</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Senarai Produk Semasa -->
+            <h4 class="text-lg font-bold text-white mb-4"><i class="fas fa-list mr-2"></i>Senarai Produk Semasa</h4>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-gray-400 text-sm">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="p-3 rounded-tl-lg">Gambar</th>
+                            <th class="p-3">Nama</th>
+                            <th class="p-3">Harga</th>
+                            <th class="p-3 text-right rounded-tr-lg">Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminProductList" class="divide-y divide-gray-800">
+                        <!-- Admin products diisi di sini -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="hidden fixed inset-0 z-[100] modal-backdrop flex items-center justify-center p-4">
+        <div class="bg-darker border border-gray-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl relative text-center">
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <h3 class="text-xl font-bold text-white mb-6">Kongsi Produk Ini</h3>
+            <div id="shareButtonsContainer" class="flex justify-center flex-wrap gap-4 share-btn-group mb-6">
+                <!-- Butang Share dinamik diisi di sini -->
+            </div>
+            <div class="bg-dark p-3 rounded flex items-center gap-2 border border-gray-700">
+                <input type="text" id="shareLinkInput" readonly class="bg-transparent w-full text-gray-400 text-xs outline-none">
+                <button onclick="copyShareLink()" class="text-primary hover:text-accent p-2"><i class="fas fa-copy"></i></button>
+            </div>
+            <p id="copyMsg" class="text-green-500 text-xs mt-2 hidden">Link dan info disalin!</p>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/60174288578?text=Hai%20Fizi%20Bob%20Ok%20Computer,%20saya%20berminat%20dengan%20servis/PC%20anda." target="_blank" class="float-wa" title="Hubungi kami di WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // --- TETAPAN ADMIN SANGAT PENTING (UNTUK BOS JUAL PADA KLIEN) ---
+        // Masukkan URL Web App Google Apps Script klien di dalam tanda pengikat kata di bawah.
+        // Biarkan kosong ('') semasa bos test (ia automatik guna LocalStorage browser).
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpNAH72UBefPISL3vbhenTuWyRsi17uxCMktZCrGt7Aku01I9GjB7vuoX-wBIXIVFCAw/exec'; 
+        // ------------------------------------
+
+        // Produk lalai jika tiada data dalam LocalStorage
+        const defaultProducts = [
+            {
+                id: 1700000001,
+                name: "Project: APEX",
+                price: "4599",
+                cpu: "Intel Core i5-13400F",
+                ram: "16GB DDR5 5200MHz",
+                gpu: "RTX 4060 8GB GDDR6",
+                storage: "1TB NVMe Gen4",
+                image: "https://images.unsplash.com/photo-1587831990711-23ca6441447b?q=80&w=800&auto=format&fit=crop"
+            },
+            {
+                id: 1700000002,
+                name: "TITAN Extreme",
+                price: "8999",
+                cpu: "Intel Core i7-14700K",
+                ram: "32GB DDR5 6000MHz",
+                gpu: "RTX 4070 Ti SUPER 16GB",
+                storage: "2TB NVMe Gen4",
+                image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=800&auto=format&fit=crop"
+            }
+        ];
+
+        let products = [];
+
+        async function initApp() {
+            // 1. Cuba tarik data dari Google Sheet dahulu (Jika bos dah masukkan link klien)
+            if (SCRIPT_URL && SCRIPT_URL !== '') {
+                try {
+                    const response = await fetch(SCRIPT_URL);
+                    const dbProducts = await response.json();
+                    if(dbProducts && dbProducts.length > 0) {
+                        products = dbProducts.reverse(); // Terkini duduk atas
+                        renderProducts();
+                        return; // Berhenti di sini jika berjaya tarik dari Google Sheet
+                    }
+                } catch (e) {
+                    console.error("Gagal load dari Google Sheet:", e);
+                }
+            }
+
+            // 2. Jika SCRIPT_URL kosong, guna data LocalStorage browser (sebagai backup)
+            const stored = localStorage.getItem('fizi_products');
+            if (!stored) {
+                products = [...defaultProducts];
+                saveToStorage();
+            } else {
+                products = JSON.parse(stored);
+            }
+            renderProducts();
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('fizi_products', JSON.stringify(products));
+        }
+
+        function renderProducts() {
+            const container = document.getElementById('product-container');
+            container.innerHTML = '';
+            
+            if (products.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10">Tiada produk. Sila login Admin untuk tambah produk baru.</div>`;
+                return;
+            }
+
+            products.forEach(p => {
+                const card = `
+                <div class="product-card bg-dark border border-gray-800 rounded-2xl overflow-hidden flex flex-col relative group">
+                    <!-- Butang Share -->
+                    <div class="absolute top-4 right-4 z-20">
+                        <button onclick="openShareModal(${p.id})" class="bg-black/50 backdrop-blur text-white p-3 rounded-full hover:bg-primary border border-gray-600 transition-colors shadow-lg" title="Kongsi Produk">
+                            <i class="fas fa-share-nodes"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="relative h-64 bg-gray-900">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h3 class="text-2xl font-bold text-white mb-2">${p.name}</h3>
+                        <div class="text-primary text-3xl font-black mb-6">RM ${p.price}</div>
+                        
+                        <div class="space-y-1 mb-8 flex-grow">
+                            <div class="spec-row">
+                                <span class="text-gray-400"><i class="fas fa-microchip w-5"></i> CPU</span>
+                                <span class="text-white font-medium text-right ml-2">${p.cpu}</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="text-gray-400"><i class="fas fa-memory w-5"></i> RAM</span>
+                                <span class="text-white font-medium text-right ml-2">${p.ram}</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="text-gray-400"><i class="fas fa-desktop w-5"></i> GPU</span>
+                                <span class="text-white font-medium text-right ml-2">${p.gpu}</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="text-gray-400"><i class="fas fa-hdd w-5"></i> SSD</span>
+                                <span class="text-white font-medium text-right ml-2">${p.storage}</span>
+                            </div>
+                        </div>
+                        
+                        <button onclick="orderWhatsApp('${p.name}', '${p.price}')" class="w-full bg-white/10 hover:bg-primary border border-gray-700 hover:border-primary text-white py-3 rounded-lg font-semibold transition-colors flex justify-center items-center gap-2">
+                            <i class="fab fa-whatsapp text-lg"></i> Beli Sekarang
+                        </button>
+                    </div>
+                </div>`;
+                container.innerHTML += card;
+            });
+        }
+
+        function openLoginModal() { document.getElementById('loginModal').classList.remove('hidden'); }
+        function closeModals() { 
+            document.getElementById('loginModal').classList.add('hidden'); 
+            document.getElementById('adminModal').classList.add('hidden');
+            document.getElementById('shareModal').classList.add('hidden');
+        }
+
+        function checkLogin() {
+            const pwd = document.getElementById('adminPassword').value;
+            if (pwd === 'admin123') { // Kata laluan ialah admin123
+                document.getElementById('loginModal').classList.add('hidden');
+                document.getElementById('adminPassword').value = '';
+                document.getElementById('loginError').classList.add('hidden');
+                renderAdminTable();
+                document.getElementById('adminModal').classList.remove('hidden');
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('adminProductList');
+            tbody.innerHTML = '';
+            products.forEach(p => {
+                tbody.innerHTML += `
+                <tr class="hover:bg-gray-800/50">
+                    <td class="p-3"><img src="${p.image}" class="w-12 h-12 object-cover rounded border border-gray-700"></td>
+                    <td class="p-3 text-white font-medium">${p.name}</td>
+                    <td class="p-3 text-primary">RM ${p.price}</td>
+                    <td class="p-3 text-right">
+                        <button onclick="deleteProduct(${p.id})" class="text-red-500 hover:text-red-400 p-2 bg-red-500/10 rounded"><i class="fas fa-trash"></i> Padam</button>
+                    </td>
+                </tr>`;
+            });
+        }
+
+        // Auto Compress Gambar menggunakan Canvas HTML5 sebelum save (Supaya tak hang)
+        function compressImage(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 800; // Saiz lebar maksimum
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Tukar ke JPEG kualiti 70% untuk jimat saiz
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                    callback(dataUrl);
+                }
+                img.src = event.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function saveProduct(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('pImage');
+            if (fileInput.files.length === 0) return;
+
+            const file = fileInput.files[0];
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses & Upload Gambar...';
+            btn.disabled = true;
+
+            // Panggil fungsi auto compress saiz gambar
+            compressImage(file, async function(compressedDataUrl) {
+                
+                if (SCRIPT_URL && SCRIPT_URL !== '') {
+                    // --- KAEDAH GOOGLE DRIVE & SHEET (Untuk Klien Beli) ---
+                    const formData = new FormData();
+                    formData.append('action', 'addProduct');
+                    formData.append('name', document.getElementById('pName').value);
+                    formData.append('price', document.getElementById('pPrice').value);
+                    formData.append('cpu', document.getElementById('pCpu').value);
+                    formData.append('ram', document.getElementById('pRam').value);
+                    formData.append('gpu', document.getElementById('pGpu').value);
+                    formData.append('storage', document.getElementById('pStorage').value);
+                    formData.append('image', compressedDataUrl);
+
+                    try {
+                        const response = await fetch(SCRIPT_URL, { method: 'POST', body: formData });
+                        const result = await response.json();
+                        
+                        if (result.status === 'success') {
+                            const newProduct = {
+                                id: result.id,
+                                name: document.getElementById('pName').value,
+                                price: document.getElementById('pPrice').value,
+                                cpu: document.getElementById('pCpu').value,
+                                ram: document.getElementById('pRam').value,
+                                gpu: document.getElementById('pGpu').value,
+                                storage: document.getElementById('pStorage').value,
+                                image: result.imageUrl // Guna URL direct link dari Google Drive klien
+                            };
+                            products.unshift(newProduct);
+                            renderProducts();
+                            renderAdminTable();
+                        }
+                    } catch (err) {
+                        alert("Gagal simpan ke server. Sila semak semula SCRIPT_URL anda.");
+                    }
+                } else {
+                    // --- KAEDAH LOCALSTORAGE (Untuk Bos test di Canvas ini) ---
+                    const newProduct = {
+                        id: Date.now(), 
+                        name: document.getElementById('pName').value,
+                        price: document.getElementById('pPrice').value,
+                        cpu: document.getElementById('pCpu').value,
+                        ram: document.getElementById('pRam').value,
+                        gpu: document.getElementById('pGpu').value,
+                        storage: document.getElementById('pStorage').value,
+                        image: compressedDataUrl
+                    };
+                    products.unshift(newProduct);
+                    saveToStorage();
+                    renderProducts();
+                    renderAdminTable();
+                }
+
+                // Reset borang
+                e.target.reset();
+                btn.innerHTML = '<i class="fas fa-check"></i> Berjaya di-Publish!';
+                setTimeout(() => { 
+                    btn.innerHTML = originalText; 
+                    btn.disabled = false;
+                }, 2000);
+            });
+        }
+
+        async function deleteProduct(id) {
+            if(!confirm("Anda pasti mahu memadam produk ini?")) return;
+            
+            // Delete dari Google Apps Script dan Google Drive jika ada URL Klien
+            if (SCRIPT_URL && SCRIPT_URL !== '') {
+                const formData = new FormData();
+                formData.append('action', 'deleteProduct');
+                formData.append('id', id);
+                try {
+                    await fetch(SCRIPT_URL, { method: 'POST', body: formData });
+                } catch(e) { console.error(e); }
+            }
+
+            products = products.filter(p => p.id !== id);
+            
+            // Update UI Interface
+            if (!SCRIPT_URL || SCRIPT_URL === '') saveToStorage();
+            renderProducts();
+            renderAdminTable();
+        }
+
+        let currentShareText = "";
+        function openShareModal(id) {
+            const p = products.find(x => x.id === id);
+            if(!p) return;
+
+            const baseUrl = window.location.href.split('#')[0];
+            // Bina teks mempromosikan barang
+            const text = `🔥 Check out *${p.name}* di Fizi Bob Ok Computer!\n💰 Harga: RM ${p.price}\n⚙️ Spec Padu: ${p.cpu}, ${p.ram}, ${p.gpu}\n\nLayari sekarang: `;
+            
+            currentShareText = text + baseUrl;
+            const encodedText = encodeURIComponent(text);
+            const encodedUrl = encodeURIComponent(baseUrl);
+
+            // Link khas untuk aplikasi
+            const waLink = `https://wa.me/?text=${encodeURIComponent(text + baseUrl)}`;
+            const fbLink = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`;
+            const xLink = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`;
+            const tgLink = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`;
+            const threadsLink = `https://threads.net/intent/post?text=${encodeURIComponent(text + baseUrl)}`;
+
+            const container = document.getElementById('shareButtonsContainer');
+            container.innerHTML = `
+                <a href="${waLink}" target="_blank" class="w-12 h-12 bg-[#25D366] text-white rounded-full flex items-center justify-center text-xl shadow-lg"><i class="fab fa-whatsapp"></i></a>
+                <a href="${fbLink}" target="_blank" class="w-12 h-12 bg-[#1877F2] text-white rounded-full flex items-center justify-center text-xl shadow-lg"><i class="fab fa-facebook-f"></i></a>
+                <a href="${xLink}" target="_blank" class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl shadow-lg border border-gray-700"><i class="fab fa-x-twitter"></i></a>
+                <a href="${tgLink}" target="_blank" class="w-12 h-12 bg-[#0088cc] text-white rounded-full flex items-center justify-center text-xl shadow-lg"><i class="fab fa-telegram-plane"></i></a>
+                <a href="${threadsLink}" target="_blank" class="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center text-xl shadow-lg border border-gray-700"><i class="fab fa-threads"></i></a>
+            `;
+            
+            document.getElementById('shareLinkInput').value = currentShareText;
+            document.getElementById('copyMsg').classList.add('hidden');
+            document.getElementById('shareModal').classList.remove('hidden');
+        }
+
+        function copyShareLink() {
+            const input = document.getElementById('shareLinkInput');
+            input.select();
+            document.execCommand('copy');
+            document.getElementById('copyMsg').classList.remove('hidden');
+        }
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => { menu.classList.add('hidden'); });
+        });
+
+        // Sticky Navbar Glass
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-lg');
+                nav.style.background = 'rgba(2, 6, 23, 0.95)'; 
+            } else {
+                nav.classList.remove('shadow-lg');
+                nav.style.background = 'rgba(15, 23, 42, 0.8)';
+            }
+        });
+
+        // Tempahan WhatsApp
+        function orderWhatsApp(productName, price) {
+            const phoneOwner = "60123456789"; // Tukar nombor ini
+            const message = `Hai Fizi Bob Ok Computer, saya berminat untuk membeli model *${productName}* berharga *RM ${price}*. Boleh berikan maklumat lanjut?`;
+            window.open(`https://wa.me/${phoneOwner}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        // Borang Google Sheet
+ async function submitForm(event) {
+
+    event.preventDefault();
+
+    const btn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
+
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Menghantar...';
+
+    const formData = new FormData();
+
+    formData.append('action', 'submitInquiry');
+    formData.append('nama', document.getElementById('name').value);
+    formData.append('telefon', document.getElementById('phone').value);
+    formData.append('servis', document.getElementById('service').value);
+    formData.append('mesej', document.getElementById('message').value);
+
+    try {
+
+        const response = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if(result.status === "success") {
+
+            successMsg.classList.remove('hidden');
+
+            document.getElementById('googleSheetForm').reset();
+
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+            }, 5000);
+
+        }
+
+    } catch(err) {
+
+        alert("Gagal hantar borang");
+
+    }
+
+    btn.innerHTML = 'Hantar Permohonan <i class="fas fa-paper-plane ml-2"></i>';
+}
+
+        // Mula sistem apabila halaman dibuka
+        window.onload = initApp;
+    </script>
+</body>
+</html>
