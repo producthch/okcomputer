@@ -371,6 +371,7 @@
             <div class="bg-dark p-6 rounded-xl mb-8 border border-gray-800">
                 <h4 class="text-lg font-bold text-primary mb-4"><i class="fas fa-plus-circle mr-2"></i>Tambah Produk Baru</h4>
                 <form id="addProductForm" onsubmit="saveProduct(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="hidden" id="editProductId">
                     <div>
                         <label class="block text-sm text-gray-400 mb-1">Nama Produk</label>
                         <input type="text" id="pName" placeholder="Cth: PC Gaming Bajet" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
@@ -604,14 +605,23 @@
                 RM ${p.price}
             </td>
 
-            <td class="p-3 text-right">
-                <button onclick="deleteProduct(${p.id})"
-                    class="text-red-500 hover:text-red-400 p-2 bg-red-500/10 rounded">
+            <td class="p-3 text-right flex gap-2 justify-end">
 
-                    <i class="fas fa-trash"></i> Padam
+    <button onclick="editProduct(${p.id})"
+        class="text-blue-400 hover:text-blue-300 p-2 bg-blue-500/10 rounded">
 
-                </button>
-            </td>
+        <i class="fas fa-pen"></i> Edit
+
+    </button>
+
+    <button onclick="deleteProduct(${p.id})"
+        class="text-red-500 hover:text-red-400 p-2 bg-red-500/10 rounded">
+
+        <i class="fas fa-trash"></i> Padam
+
+    </button>
+
+</td>
 
         </tr>`;
     });
@@ -664,7 +674,20 @@
                 if (SCRIPT_URL && SCRIPT_URL !== '') {
                     // --- KAEDAH GOOGLE DRIVE & SHEET (Untuk Klien Beli) ---
                     const formData = new FormData();
-                    formData.append('action', 'addProduct');
+                    const editId =
+document.getElementById('editProductId').value;
+
+if(editId){
+
+    formData.append('action', 'updateProduct');
+
+    formData.append('id', editId);
+
+}else{
+
+    formData.append('action', 'addProduct');
+
+}
                     formData.append('name', document.getElementById('pName').value);
                     formData.append('price', document.getElementById('pPrice').value);
                     formData.append('cpu', document.getElementById('pCpu').value);
@@ -898,6 +921,34 @@ ${productUrl}`;
     }
 }
 
+function editProduct(id) {
+
+    const product = products.find(p => p.id == id);
+
+    if (!product) return;
+
+    document.getElementById('editProductId').value = product.id;
+
+    document.getElementById('pName').value = product.name;
+
+    document.getElementById('pPrice').value = product.price;
+
+    document.getElementById('pCpu').value = product.cpu;
+
+    document.getElementById('pRam').value = product.ram;
+
+    document.getElementById('pGpu').value = product.gpu;
+
+    document.getElementById('pStorage').value = product.storage;
+
+    document.getElementById('pPayment').value = product.payment || '';
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+
+}
 
 
 
