@@ -400,6 +400,16 @@
                         <label class="block text-sm text-gray-400 mb-1">Storan (SSD/HDD)</label>
                         <input type="text" id="pStorage" placeholder="Cth: 512GB NVMe SSD" required class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
                     </div>
+<div class="md:col-span-2">
+    <label class="block text-sm text-gray-400 mb-1">
+        Link Pembayaran ToyyibPay
+    </label>
+
+    <input type="url"
+        id="pPayment"
+        placeholder="https://toyyibpay.com/xxxxx"
+        class="w-full bg-darker border border-gray-700 rounded px-3 py-2 text-white text-sm">
+</div>
                     <div class="md:col-span-2 mt-4">
                         <button type="submit" class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 rounded-lg transition-colors shadow-lg"><i class="fas fa-upload mr-2"></i> Publish Produk</button>
                     </div>
@@ -537,6 +547,14 @@
                         <button onclick="orderWhatsApp('${p.name}', '${p.price}')" class="w-full bg-white/10 hover:bg-primary border border-gray-700 hover:border-primary text-white py-3 rounded-lg font-semibold transition-colors flex justify-center items-center gap-2">
                             <i class="fab fa-whatsapp text-lg"></i> Beli Sekarang
                         </button>
+                        <a href="${p.payment}"
+   target="_blank"
+   class="w-full mt-3 bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg font-semibold transition-colors flex justify-center items-center gap-2">
+
+    <i class="fas fa-credit-card"></i>
+    Bayar Sekarang
+
+</a>
                     </div>
                 </div>`;
                 container.innerHTML += card;
@@ -653,6 +671,7 @@
                     formData.append('ram', document.getElementById('pRam').value);
                     formData.append('gpu', document.getElementById('pGpu').value);
                     formData.append('storage', document.getElementById('pStorage').value);
+                    formData.append('payment', document.getElementById('pPayment').value);
                     formData.append('image', compressedDataUrl);
 
                     try {
