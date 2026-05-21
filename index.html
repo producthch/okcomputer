@@ -503,7 +503,7 @@
                 <div class="product-card bg-dark border border-gray-800 rounded-2xl overflow-hidden flex flex-col relative group">
                     <!-- Butang Share -->
                     <div class="absolute top-4 right-4 z-20">
-                        <button onclick="shareProduct('${p.name}', '${p.price}', '${p.image}')" class="bg-black/50 backdrop-blur text-white p-3 rounded-full hover:bg-primary border border-gray-600 transition-colors shadow-lg" title="Kongsi Produk">
+                        <button onclick="shareProduct('${p.id}', '${p.name}', '${p.price}')" class="bg-black/50 backdrop-blur text-white p-3 rounded-full hover:bg-primary border border-gray-600 transition-colors shadow-lg" title="Kongsi Produk">
                             <i class="fas fa-share-nodes"></i>
                         </button>
                     </div>
@@ -846,19 +846,19 @@
         // Mula sistem apabila halaman dibuka
         window.onload = initApp;
 
-async function shareProduct(productName, price, imageUrl) {
+async function shareProduct(id, productName, price) {
+
+    const productUrl =
+        window.location.origin +
+        window.location.pathname +
+        "#product-" + id;
 
     const shareText =
 `🔥 ${productName}
 
 💰 Harga: RM ${price}
 
-🖼️ Gambar:
-${imageUrl}
-
-Hubungi sekarang untuk tempahan!
-
-${window.location.href}`;
+${productUrl}`;
 
     try {
 
@@ -867,8 +867,7 @@ ${window.location.href}`;
             title: productName,
 
             text: shareText,
-
-            url: window.location.href
+            url: productUrl
 
         });
 
@@ -876,10 +875,9 @@ ${window.location.href}`;
 
         navigator.clipboard.writeText(shareText);
 
-        alert("Info produk disalin!");
+        alert("Link produk disalin!");
     }
 }
-
 
 
 
