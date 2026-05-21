@@ -476,7 +476,7 @@
             // 2. Jika SCRIPT_URL kosong, guna data LocalStorage browser (sebagai backup)
             const stored = localStorage.getItem('fizi_products');
             if (!stored) {
-                products = [...defaultProducts];
+                products = [];
                 saveToStorage();
             } else {
                 products = JSON.parse(stored);
@@ -574,11 +574,7 @@
         <tr class="hover:bg-gray-800/50">
 
             <td class="p-3">
-                <img 
-                    src="${p.image}" 
-                    crossorigin="anonymous"
-                    referrerpolicy="no-referrer"
-                    class="w-12 h-12 object-cover rounded border border-gray-700">
+                <img src="${product.image}" class="w-12 h-12 object-cover rounded border border-gray-700">
             </td>
 
             <td class="p-3 text-white font-medium">
